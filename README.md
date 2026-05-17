@@ -65,9 +65,6 @@ cd AI-Chinese-Fortune-Teller
 
 # Open directly in browser
 open index.html
-
-# Or serve locally
-npx serve .
 ```
 
 ## 📋 Development Status
