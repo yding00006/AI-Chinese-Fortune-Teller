@@ -31,8 +31,6 @@ A web application powered by AI that delivers personalized fortune-telling readi
 
 ```
 chinese-fortune-telling/
-├── public/
-│   └── images/               # Static assets
 ├── src/
 │   ├── components/           # UI components
 │   │   ├── homepage.js       # Landing page logic
