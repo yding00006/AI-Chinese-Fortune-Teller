@@ -49,7 +49,6 @@ chinese-fortune-telling/
 │   └── divination-systems.md # Research notes
 ├── index.html                # Main entry point
 ├── package.json
-├── .gitignore
 ├── LICENSE
 └── README.md
 ```
