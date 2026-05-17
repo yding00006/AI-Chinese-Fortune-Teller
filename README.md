@@ -58,7 +58,6 @@ chinese-fortune-telling/
 
 ### Prerequisites
 - A modern web browser (Chrome, Firefox, Safari, Edge)
-- Node.js 18+ *(for future backend integration)*
 
 ### Installation
 
