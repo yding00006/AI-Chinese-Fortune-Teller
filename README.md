@@ -74,15 +74,6 @@ open index.html
 npx serve .
 ```
 
-### Future Setup (after API integration)
-
-```bash
-npm install
-cp .env.example .env
-# Add your Anthropic API key to .env
-npm run dev
-```
-
 ## 📋 Development Status
 
 | Feature | Status |
@@ -99,23 +90,7 @@ npm run dev
 | Social sharing | 🔲 Not started |
 | User testing | 🔲 Not started |
 
-## 🎨 Design Direction
 
-The visual aesthetic draws from traditional Chinese art:
-- **Color palette**: Deep blacks, rich golds (#D4A853), cinnabar reds (#C4382A), jade greens
-- **Textures**: Ink wash (水墨) inspired backgrounds
-- **Typography**: Noto Serif SC for Chinese characters, Cinzel for English headings
-- **Motifs**: Cloud patterns, traditional borders, seal stamps
-
-## 🔮 Prompt Engineering (Planned)
-
-Each divination method will use a carefully engineered prompt template that:
-1. Encodes the logic and symbolism of the traditional system
-2. Accepts user-specific inputs (birth data, questions)
-3. Generates culturally respectful, personalized readings
-4. Includes an entertainment disclaimer
-
-See `src/prompts/templates.md` for draft templates.
 
 ## ⚠️ Disclaimer
 
