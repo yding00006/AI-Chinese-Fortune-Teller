@@ -60,13 +60,13 @@ chinese-fortune-telling/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/chinese-fortune-telling.git
-cd chinese-fortune-telling
+git clone https://github.com/yding00006/AI-Chinese-Fortune-Teller.git
+cd AI-Chinese-Fortune-Teller
 
-# Open directly in browser (current static version)
+# Open directly in browser
 open index.html
 
-# Or serve with a local server
+# Or serve locally
 npx serve .
 ```
 
