@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chinese Fortune Telling | 中国算命</title>
+  <meta name="description" content="AI-powered fortune-telling readings rooted in traditional Chinese divination methods — Bazi, Zi Wei Dou Shu, I Ching, and Face Reading." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="src/styles/main.css" />
+</head>
+<body>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="hero">
+    <div class="hero-ornament">☰ ☷ ☳ ☴</div>
+    <h1 class="hero-title">天命算卦</h1>
+    <p class="hero-subtitle">Chinese Fortune Telling</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      Discover your destiny through four ancient Chinese divination systems,
+      powered by modern AI. Explore the wisdom of Bazi, Zi Wei Dou Shu,
+      I Ching, and Face Reading.
+    </p>
+    <button class="hero-btn" id="enter-btn">Begin Your Reading</button>
+  </section>
+
+  <!-- ===== METHOD SELECTION ===== -->
+  <section id="method-selection">
+    <div class="container">
+      <div class="section-header">
+        <h2>Choose Your Path</h2>
+        <p class="cn-subtitle">选择你的命理之道</p>
+      </div>
+      <div id="methods-grid">
+        <!-- Cards rendered by method-selector.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INPUT FORM ===== -->
+  <section id="input-section">
+    <div class="container">
+      <h2 id="form-title"></h2>
+      <div id="input-form">
+        <!-- Form fields rendered by input-form.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESULTS DISPLAY ===== -->
+  <section id="results-section">
+    <div class="container">
+      <h2 id="results-title"></h2>
+      <div id="results-content">
+        <!-- Results rendered by results-display.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <p>
+        ⚠️ All readings are for entertainment and cultural exploration purposes only.
+        <br />
+        本网站所有解读仅供娱乐和文化探索之用。
+      </p>
+      <p style="margin-top: 0.5rem;">
+        Built by <a href="mailto:yding06@stanford.edu">Yu Ding</a> · Stanford University · 2026
+      </p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="src/utils/helpers.js"></script>
+  <script src="src/components/homepage.js"></script>
+  <script src="src/components/method-selector.js"></script>
+  <script src="src/components/input-form.js"></script>
+  <script src="src/components/results-display.js"></script>
+
+  <script>
+    // Initialize all components on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      Homepage.init();
+      MethodSelector.init();
+      InputForm.init();
+      ResultsDisplay.init();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "chinese-fortune-telling",
+  "version": "0.1.0",
+  "description": "AI-powered Chinese fortune-telling web application using traditional divination methods",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "server": "node server.js"
+  },
+  "keywords": [
+    "fortune-telling",
+    "chinese-divination",
+    "bazi",
+    "i-ching",
+    "zi-wei-dou-shu",
+    "face-reading",
+    "claude-api",
+    "ai"
+  ],
+  "author": "Yu Ding <yding06@stanford.edu>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
