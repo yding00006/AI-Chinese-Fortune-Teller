@@ -19,6 +19,9 @@
 </head>
 <body>
 
+  <!-- ===== STATUS BANNER ===== -->
+  <div id="status-banner"></div>
+
   <!-- ===== HERO SECTION ===== -->
   <section id="hero">
     <div class="hero-ornament">☰ ☷ ☳ ☴</div>
@@ -66,6 +69,19 @@
     </div>
   </section>
 
+  <!-- ===== READING HISTORY ===== -->
+  <section id="history-section" class="history-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Reading History</h2>
+        <p class="cn-subtitle">历史解读记录</p>
+      </div>
+      <div id="history-content">
+        <!-- History rendered by history.js -->
+      </div>
+    </div>
+  </section>
+
   <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container">
@@ -82,18 +98,24 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="src/utils/helpers.js"></script>
+  <script src="src/utils/iching-hexagrams.js"></script>
+  <script src="src/utils/bazi-calculator.js"></script>
+  <script src="src/components/status-banner.js"></script>
   <script src="src/components/homepage.js"></script>
   <script src="src/components/method-selector.js"></script>
   <script src="src/components/input-form.js"></script>
   <script src="src/components/results-display.js"></script>
+  <script src="src/components/history.js"></script>
 
   <script>
     // Initialize all components on DOM ready
     document.addEventListener('DOMContentLoaded', () => {
+      StatusBanner.init();
       Homepage.init();
       MethodSelector.init();
       InputForm.init();
       ResultsDisplay.init();
+      ReadingHistory.init();
     });
   </script>
 

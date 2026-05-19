@@ -4,8 +4,8 @@
   "description": "AI-powered Chinese fortune-telling web application using traditional divination methods",
   "main": "index.html",
   "scripts": {
-    "dev": "npx serve . -p 3000",
-    "server": "node server.js"
+    "dev": "node server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "fortune-telling",
@@ -18,6 +18,9 @@
     "ai"
   ],
   "author": "Yu Ding <yding06@stanford.edu>",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.96.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
 }

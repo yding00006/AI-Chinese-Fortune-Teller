@@ -110,9 +110,10 @@ function generateHexagram() {
 }
 
 /**
- * I Ching hexagram names lookup (partial — first 8 for demo)
+ * I Ching hexagram names lookup
+ * Uses HEXAGRAMS_64 from iching-hexagrams.js if available, otherwise fallback
  */
-const HEXAGRAM_NAMES = {
+const HEXAGRAM_NAMES = (typeof HEXAGRAMS_64 !== 'undefined') ? HEXAGRAMS_64 : {
   '111111': { number: 1, name: '乾', pinyin: 'Qián', english: 'The Creative' },
   '000000': { number: 2, name: '坤', pinyin: 'Kūn', english: 'The Receptive' },
   '100010': { number: 3, name: '屯', pinyin: 'Zhūn', english: 'Difficulty at the Beginning' },

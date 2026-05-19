@@ -1,6 +1,7 @@
 /**
  * input-form.js — User input forms for each divination method
  * Dynamically renders the appropriate form fields based on selected method
+ * Sends data to the backend API and handles loading/error states
  */
 
 const InputForm = {
@@ -135,7 +136,6 @@ const InputForm = {
       `;
     }
 
-    // Optional question for all methods
     if (!method.inputs.includes('question')) {
       fields += `
         <div class="form-group">
@@ -206,11 +206,116 @@ const InputForm = {
     return true;
   },
 
-  submitReading(data) {
-    // TODO: In the future, this will send data to the Claude API
-    // For now, show placeholder results
-    if (typeof ResultsDisplay !== 'undefined') {
-      ResultsDisplay.showPlaceholder(data, this.currentMethod);
+  /**
+   * Submit reading — calls the backend API
+   */
+  async submitReading(data) {
+    const submitBtn = document.getElementById('submit-reading');
+
+    // Disable button and show loading
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Consulting the heavens… 正在推演…';
+      submitBtn.style.opacity = '0.6';
     }
+
+    // Show loading in results
+    if (typeof ResultsDisplay !== 'undefined') {
+      ResultsDisplay.showLoading(this.currentMethod);
+    }
+
+    try {
+      // For I Ching, generate hexagram on client side and include it
+      if (data.method === 'iching' && typeof generateHexagram !== 'undefined') {
+        const hexLines = generateHexagram();
+        data.hexagramLines = hexLines;
+        const binary = hexLines.map((l) => (l.type === 'yang' ? '1' : '0')).join('');
+        if (typeof HEXAGRAM_NAMES !== 'undefined' && HEXAGRAM_NAMES[binary]) {
+          data.hexagramName = HEXAGRAM_NAMES[binary];
+        }
+        data.changingLines = hexLines
+          .map((l, i) => (l.changing ? i + 1 : null))
+          .filter(Boolean);
+        const transformed = hexLines.map((l) => {
+          if (l.changing) return l.type === 'yang' ? '0' : '1';
+          return l.type === 'yang' ? '1' : '0';
+        }).join('');
+        data.transformedHexagram = transformed;
+      }
+
+      const response = await fetch('/api/reading', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // If calendar info was returned, prepend it to the reading
+        let enrichedHTML = result.readingHTML;
+        if (result.calendarInfo && result.calendarInfo.lunar) {
+          const cal = result.calendarInfo;
+          let calHTML = '<div class="calendar-info"><div class="calendar-info-title">📅 Chinese Calendar Data 农历信息</div><div class="calendar-info-grid">';
+          if (cal.lunar) {
+            calHTML += `<div class="calendar-info-item"><div class="label">Lunar Date 农历</div><div class="value">${cal.lunar.displayCn}</div></div>`;
+          }
+          if (cal.solarTerm) {
+            calHTML += `<div class="calendar-info-item"><div class="label">Solar Term 节气</div><div class="value">${cal.solarTerm.cn} ${cal.solarTerm.name}</div></div>`;
+          }
+          if (cal.dayIndicator) {
+            calHTML += `<div class="calendar-info-item"><div class="label">Day Quality 日值</div><div class="value">${cal.dayIndicator.name} (${cal.dayIndicator.english})</div></div>`;
+          }
+          calHTML += '</div></div>';
+          enrichedHTML = calHTML + enrichedHTML;
+        }
+
+        ResultsDisplay.showReading(enrichedHTML, this.currentMethod);
+
+        // Save to localStorage history
+        if (typeof ReadingHistory !== 'undefined') {
+          ReadingHistory.save({
+            method: this.currentMethod.id,
+            methodName: this.currentMethod.name,
+            methodCn: this.currentMethod.cn,
+            inputSummary: this.getInputSummary(data),
+            readingHTML: enrichedHTML,
+            demo: result.demo || false,
+          });
+        }
+      } else if (result.validationErrors) {
+        // Show structured validation errors
+        let errorHTML = '<div class="validation-errors">';
+        for (const err of result.validationErrors) {
+          errorHTML += `<div class="validation-error-item"><span class="field-name">${err.field}:</span> ${err.message}</div>`;
+        }
+        errorHTML += '</div>';
+        ResultsDisplay.showError(result.error + errorHTML);
+      } else {
+        ResultsDisplay.showError(result.error || 'An unknown error occurred.');
+      }
+    } catch (err) {
+      console.error('Request failed:', err);
+      ResultsDisplay.showError(
+        'Could not connect to the server. Please make sure the server is running.\n无法连接服务器，请确认服务器正在运行。'
+      );
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Reveal My Reading 开始解读';
+        submitBtn.style.opacity = '1';
+      }
+    }
+  },
+
+  getInputSummary(data) {
+    const parts = [];
+    if (data.birthDate) parts.push(`Born: ${data.birthDate}`);
+    if (data.birthTime && data.birthTime !== 'unknown') parts.push(`Time: ${data.birthTime}`);
+    if (data.gender) parts.push(`Gender: ${data.gender}`);
+    if (data.question) parts.push(`Q: ${data.question.substring(0, 60)}${data.question.length > 60 ? '…' : ''}`);
+    if (data.faceShape) parts.push(`Shape: ${data.faceShape}`);
+    if (data.interestArea) parts.push(`Focus: ${data.interestArea}`);
+    return parts.join(' | ');
   },
 };
