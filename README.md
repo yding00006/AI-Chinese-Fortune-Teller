@@ -34,7 +34,7 @@ An AI-powered web application for Chinese fortune-telling readings, combining fo
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/AI-Chinese-Fortune-Teller.git
+git clone https://github.com/yding00006/AI-Chinese-Fortune-Teller.git
 cd AI-Chinese-Fortune-Teller
 npm install
 ```
